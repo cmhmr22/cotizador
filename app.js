@@ -79,21 +79,27 @@ function mostrar_editar(id, nombre, telefono){
 	document.getElementById('nombre-editar').value = nombre;
 	document.getElementById('telefono-editar').value = telefono;
 	document.getElementById('id-editar').value = id;
-	$('#editarModal').modal('show');
+	$('#editarModal').modal('show'); //mostramos modal
 }
 
 function editar(){
+	//guardamos datos
+	id	= document.getElementById('id-editar').value;
+	nombre = document.getElementById('nombre-editar').value;
+	telefono = document.getElementById('telefono-editar').value;
+
+	var f = new Date(); //obtiene la fecha
 	db.collection("clientes").doc(id).update({
- 
 	    Nombre: nombre,
 	    Telefono: telefono,
-	    Updated_at: "06/17/2019"
+	    Updated_at: `${f.getDate()}/${f.getMonth()}/${f.getFullYear()}`
 
 	})
-	.then(function(docRef) {
-	    console.log("Datos actualizados de ID: ", docRef.id);
-		document.getElementById('nombre').value = "";
-		document.getElementById('telefono').value = "";
+	.then(function() {
+	    console.log("Datos actualizados de ID: ", id);
+		document.getElementById('nombre-editar').value = "";
+		document.getElementById('telefono-editar').value = "";
+		$('#editarModal').modal('hide'); //ocultamos modal
 	})
 	.catch(function(error) {
 	    console.error("Error al editar Documento: ", error);
