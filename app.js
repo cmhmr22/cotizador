@@ -30,7 +30,7 @@ db.collection("clientes").onSnapshot((querySnapshot) => {
 	            <th scope="row">${doc.id}</th>
 	            <td>${doc.data().Nombre}</td>
 	            <td>${doc.data().Telefono}</td>
-	            <td>${doc.data().Created_at}</td>
+	            <td>${doc.data().Updated_at}</td>
 	            <td><button type="submit" class="btn btn-warning" id="editar" onclick="mostrar_editar('${doc.id}', '${doc.data().Nombre}', '${doc.data().Telefono}')">Editar</button>
 	            <button type="submit" class="btn btn-danger" id="eliminar" onclick="eliminar('${doc.id}')">Eliminar</button></td>
           	</tr>
@@ -92,7 +92,7 @@ function editar(){
 	db.collection("clientes").doc(id).update({
 	    Nombre: nombre,
 	    Telefono: telefono,
-	    Updated_at: `${f.getDate()}/${f.getMonth()}/${f.getFullYear()}`
+	    Updated_at: `${f.getMonth()}/${f.getDate()}/${f.getFullYear()}`
 
 	})
 	.then(function() {
