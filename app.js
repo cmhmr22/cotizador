@@ -44,22 +44,27 @@ db.collection("clientes").onSnapshot((querySnapshot) => {
 function guardar(){
 	var	nombre = document.getElementById('nombre').value;
 	var	telefono = document.getElementById('telefono').value;
+	var f = new Date(); //obtiene la fecha
 
 	db.collection("clientes").add({
     
     Nombre: nombre,
     Telefono: telefono,
-    Created_at: "06/17/2019",
-    Updated_at: "06/17/2019"
+    Created_at: `${f.getMonth()}/${f.getDate()}/${f.getFullYear()} a las ${f.getHours()}:${f.getMinutes()}:${f.getSeconds()}`,
+    Updated_at: `${f.getMonth()}/${f.getDate()}/${f.getFullYear()} a las ${f.getHours()}:${f.getMinutes()}:${f.getSeconds()}`
 
 	})
 	.then(function(docRef) {
 	    console.log("Datos guardados con ID: ", docRef.id);
 		document.getElementById('nombre').value = "";
 		document.getElementById('telefono').value = "";
+		Command: toastr["success"]("La información fue agregada exitosamente", "Agregado correctamente");
+
 	})
 	.catch(function(error) {
 	    console.error("Error al agregar Documento: ", error);
+	     Command: toastr["danger"]("Error al agregar documento", "Alerta de error");
+
 	});
 }
 
@@ -69,6 +74,7 @@ function eliminar(id){
     	console.log("Datos eliminados correctamente");
 	}).catch(function(error) {
     	console.error("Error en el documento: ", error);
+    	Command: toastr["danger"]("Error al eliminar documento", "Alerta de error");
 	});
 }
 
@@ -92,7 +98,7 @@ function editar(){
 	db.collection("clientes").doc(id).update({
 	    Nombre: nombre,
 	    Telefono: telefono,
-	    Updated_at: `${f.getMonth()}/${f.getDate()}/${f.getFullYear()}`
+	    Updated_at: `${f.getMonth()}/${f.getDate()}/${f.getFullYear()} a las ${f.getHours()}:${f.getMinutes()}:${f.getSeconds()}`
 
 	})
 	.then(function() {
@@ -100,6 +106,8 @@ function editar(){
 		document.getElementById('nombre-editar').value = "";
 		document.getElementById('telefono-editar').value = "";
 		$('#editarModal').modal('hide'); //ocultamos modal
+		Command: toastr["success"]("La información fue Modificada exitosamente", "Modificado correctamente");
+
 	})
 	.catch(function(error) {
 	    console.error("Error al editar Documento: ", error);
