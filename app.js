@@ -58,12 +58,12 @@ function guardar(){
 	    console.log("Datos guardados con ID: ", docRef.id);
 		document.getElementById('nombre').value = "";
 		document.getElementById('telefono').value = "";
-		Command: toastr["success"]("La información fue agregada exitosamente", "Agregado correctamente");
+		toastr["success"]("La información fue agregada exitosamente", "Agregado correctamente");
 
 	})
 	.catch(function(error) {
 	    console.error("Error al agregar Documento: ", error);
-	     Command: toastr["danger"]("Error al agregar documento", "Alerta de error");
+	     toastr["error"]("Error al agregar documento", "Alerta de error");
 
 	});
 }
@@ -72,9 +72,11 @@ function guardar(){
 function eliminar(id){
 	db.collection("clientes").doc(id).delete().then(function() {
     	console.log("Datos eliminados correctamente");
+    	toastr["error"]("La información fue eliminada correctamente", "Eliminado exitosamente");
+
 	}).catch(function(error) {
     	console.error("Error en el documento: ", error);
-    	Command: toastr["danger"]("Error al eliminar documento", "Alerta de error");
+    	toastr["error"]("Error al eliminar documento", "Alerta de error");
 	});
 }
 
@@ -106,10 +108,12 @@ function editar(){
 		document.getElementById('nombre-editar').value = "";
 		document.getElementById('telefono-editar').value = "";
 		$('#editarModal').modal('hide'); //ocultamos modal
-		Command: toastr["success"]("La información fue Modificada exitosamente", "Modificado correctamente");
+		toastr["info"]("La información fue Modificada exitosamente", "Modificado correctamente");
 
 	})
 	.catch(function(error) {
 	    console.error("Error al editar Documento: ", error);
+	    toastr["error"]("Error al eliminar documento", "Alerta de error");
+
 	});
 }
