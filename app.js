@@ -13,12 +13,14 @@ var db = firebase.firestore();
 
 
 //leer datos
-db.collection("clientes").onSnapshot((querySnapshot) => {
+var ref = db.collection("clientes").orderBy("Updated_at" , "desc");//ordena por nombre
+
+ref.onSnapshot((querySnapshot) => {
     
     var tabla = document.getElementById('tabla-clientes'); //guardamos tabla
     tabla.innerHTML = `<thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">ID</th>
             <th scope="col">Nombre</th>
             <th scope="col">Telefono</th>
             <th scope="col">Ultimo servicio</th>
